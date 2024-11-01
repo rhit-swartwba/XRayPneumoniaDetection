@@ -3,6 +3,7 @@ import { Container, Typography, Button, Box, Grid, Card, CardMedia, CardActions 
 import ImageDropZone from './components/ImageDropZone.js';
 import PreloadedImageGallery from './components/PreloadedImageGallery.js';
 import ResultDisplay from './components/ResultDisplay.js';
+import TryToBeatModel from './components/TryToBeatModel';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -61,7 +62,12 @@ function App() {
           <ResultDisplay outcome={result.outcome} confidence={result.confidence} />
         </Box>
       )}
+      <Typography variant="h4" align="center" gutterBottom style={{ marginTop: '80px' }}>
+        Beat the Model
+      </Typography>
+      <TryToBeatModel />
     </Container>
+    
   );
 }
 
