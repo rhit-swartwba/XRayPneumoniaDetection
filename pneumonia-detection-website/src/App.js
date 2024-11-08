@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Typography, Button, Box, Grid, Card, CardMedia, CardActions } from '@mui/material';
+import axios from 'axios';
 import ImageDropZone from './components/ImageDropZone.js';
 import PreloadedImageGallery from './components/PreloadedImageGallery.js';
 import ResultDisplay from './components/ResultDisplay.js';
@@ -30,11 +31,19 @@ function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [result, setResult] = useState({ outcome: '', confidence: '' });
 
-  const handleDetect = (image) => {
-    // Here, you would normally send the image to the model
-    // For now, mock the outcome and confidence level
-    setResult({ outcome: 'Pneumonia Detected', confidence: '90%' });
-  };
+  const handleDetect = async () => {
+    const formData = new FormData();
+    formData.append('file', uploadedImage);
+
+    try {
+        const response = await axios.post('http://localhost:5000/predict', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        setResult(response.data);
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+};
 
   return (
     <Container>
@@ -46,9 +55,15 @@ function App() {
       </Box>
       {uploadedImage && (
         <Box mt={2} display="flex" justifyContent="center">
-          <Button variant="contained" color="primary" onClick={() => handleDetect(uploadedImage)}>
+          <Button variant="contained" color="primary" onClick={() => handleDetect()}>
             Detect
           </Button>
+          {result && (
+                <div>
+                    <p>Prediction: {result.prediction}</p>
+                    <p>Confidence: {result.confidence}</p>
+                </div>
+            )}
         </Box>
       )}
       <Box mt={4}>
