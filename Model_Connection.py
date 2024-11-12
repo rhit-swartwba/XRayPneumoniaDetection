@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import torch
-from torchvision import transforms
+from torchvision import transforms, models
 from PIL import Image
 import io
 
@@ -10,7 +10,9 @@ app = Flask(__name__)
 CORS(app)  # This allows all origins to access all routes
 
 # Load the trained PyTorch model
-model = torch.load('path/to/your/saved_model.pth')
+# Define your model architecture (e.g., ResNet18, ResNet50, etc.)
+model = models.resnet50(pretrained=False)  # Replace with your model architecture
+model.load_state_dict(torch.load('resnet50_pneumonia.pth'), strict=False)
 model.eval()  # Set the model to evaluation mode
 
 # Define image preprocessing transformation
@@ -39,6 +41,7 @@ def predict():
         # Run the model for prediction
         with torch.no_grad():  # Disable gradient calculation for inference
             output = model(image_tensor)
+            print(output)
             predicted_class = output.argmax(dim=1).item()  # Get the class index with the highest probability
 
         # Placeholder for confidence or detailed response (modify as needed)
