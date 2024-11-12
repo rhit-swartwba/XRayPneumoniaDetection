@@ -31,19 +31,31 @@ function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [result, setResult] = useState({ outcome: '', confidence: '' });
 
-  const handleDetect = async () => {
+  const handleDetect = async (imageSource = uploadedImage) => {
     const formData = new FormData();
-    formData.append('file', uploadedImage);
-
+  
     try {
-        const response = await axios.post('http://localhost:5000/predict', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        setResult(response.data);
+      // Check if imageSource is a File object (uploaded by the user)
+      if (imageSource instanceof File) {
+        formData.append('file', imageSource);
+      } else {
+        // If imageSource is a URL, fetch the image and convert it to a blob
+        const response = await fetch(imageSource);
+        const blob = await response.blob();
+        formData.append('file', blob, 'preloaded-image.jpg');
+      }
+  
+      // Send the formData to the server
+      const response = await axios.post('http://127.0.0.1:5000/predict', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setResult(response.data);
+      console.log('Detection result:', response.data);
     } catch (error) {
-        console.error('Error uploading image:', error);
+      console.error('Error uploading image:', error);
     }
-};
+  };
+  
 
   return (
     <Container>
@@ -70,7 +82,8 @@ function App() {
         <Typography variant="h5" gutterBottom>
           Or choose from preloaded images:
         </Typography>
-        <PreloadedImageGallery onDetect={handleDetect} />
+        <PreloadedImageGallery onDetect={(imagePath) => handleDetect(imagePath)} />
+
       </Box>
       {result.outcome && (
         <Box mt={4}>

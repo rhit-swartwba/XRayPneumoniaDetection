@@ -1,49 +1,27 @@
-import torch
-from torchvision import models, transforms
-from PIL import Image
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
 
-# Initialize the Flask app
 app = Flask(__name__)
+CORS(app)  # This allows all origins to access all routes
 
-# Define and load the model architecture
-#model = models.resnet50(pretrained=False)
-#model.fc = torch.nn.Linear(model.fc.in_features, 2)  # Assuming binary classification (pneumonia vs. no pneumonia)
-
-# Load the state dictionary into the model
-#model.load_state_dict(torch.load("./resnet50_pneumonia.pth"))
-#model.eval()
-
-# Define image preprocessing
-preprocess = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-])
-
-# Define prediction endpoint
 @app.route('/predict', methods=['POST'])
 def predict():
+    print(request)
+    print(request.files)
     if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-    
-    file = request.files['file']
-    image = Image.open(file.stream).convert('RGB')
-    
-    # Apply preprocessing
-    input_tensor = preprocess(image).unsqueeze(0)
-    
-    # Perform prediction
-    #with torch.no_grad():
-        #output = model(input_tensor)
-    #prediction = torch.argmax(output, dim=1).item()
-    #confidence = torch.nn.functional.softmax(output, dim=1).max().item()
-    prediction = "definitely pneumonia"
-    confidence = 90
-    
-    # Return prediction result as JSON
-    return jsonify({'prediction': prediction, 'confidence': confidence})
+        return make_response(jsonify({"error": "No file part in the request"}), 402)
 
-# Run the app on localhost:5000
+    file = request.files['file']
+    if file.filename == '':
+        return make_response(jsonify({"error": "No selected file"}), 401)
+
+    # Placeholder response for testing
+    response = {
+        "prediction": "This is a placeholder prediction",
+        "confidence": "N/A"
+    }
+
+    return jsonify(response)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
