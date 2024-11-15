@@ -62,10 +62,10 @@ function ImageDropZone({ onImageUpload, onDetect }) {
                   title="Uploaded Image"
                 />
                 <CardActions>
-                  <Button variant="contained" color="primary" onClick={() => onDetect(uploadedImage)}>
+                  <Button variant="contained" color="primary" fullWidth onClick={() => onDetect(uploadedImage)}>
                     Detect
                   </Button>
-                  <Button variant="outlined" color="secondary" onClick={handleOpen}>
+                  <Button variant="outlined" color="secondary" fullWidth onClick={handleOpen}>
                     Expand
                   </Button>
                 </CardActions>

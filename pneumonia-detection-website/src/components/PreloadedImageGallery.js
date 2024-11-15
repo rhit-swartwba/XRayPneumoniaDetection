@@ -59,7 +59,11 @@ function PreloadedImageGallery({ onDetect }) {
                 }}
               />
               <CardActions>
-                <Button onClick={() => onDetect(img)}>Detect</Button>
+                <Button 
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={() => onDetect(img)}>Detect</Button>
                 <Button
                   variant="outlined"
                   color="secondary"

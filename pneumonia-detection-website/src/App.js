@@ -23,12 +23,11 @@ const analytics = getAnalytics(app);
 
 function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [result, setResult] = useState({ outcome: '', confidence: '' });
+  const [result, setResult] = useState({ prediction: '', confidence: '' });
   const [openModal, setOpenModal] = useState(false);
 
   const handleDetect = async (imageSource = uploadedImage) => {
     const formData = new FormData();
-
     try {
       if (imageSource instanceof File) {
         formData.append('file', imageSource);
@@ -42,17 +41,22 @@ function App() {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      setResult(response.data);
-      console.log('Detection result:', response.data);
+      let { prediction, confidence } = response.data;
+      if (prediction === 1) {
+        prediction = 'bacterial pneumonia';
+      } else if (prediction === 2) {
+        prediction = 'viral pneumonia';
+      } else if (prediction === 0) {
+        prediction = 'healthy';
+      }
+      confidence = (confidence * 100) + '%';
+      setResult({ prediction, confidence });
       setOpenModal(true);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
 
   return (
     <Container>
@@ -68,26 +72,10 @@ function App() {
         </Typography>
         <PreloadedImageGallery onDetect={(imagePath) => handleDetect(imagePath)} />
       </Box>
-      <Modal open={openModal} onClose={handleCloseModal}>
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          bgcolor="background.paper"
-          borderRadius={2}
-          p={4}
-          m={2}
-          boxShadow={24}
-        >
-          <Typography variant="h6">Detection Result</Typography>
-          <Typography>Prediction: {result.prediction}</Typography>
-          <Typography>Confidence: {result.confidence}</Typography>
-          <Button variant="contained" color="primary" onClick={handleCloseModal} sx={{ mt: 2 }}>
-            Close
-          </Button>
-        </Box>
-      </Modal>
+      <ResultDisplay prediction={result.prediction} 
+                     confidence={result.confidence} 
+                     openModal={openModal}
+                     setOpenModal={setOpenModal}/>
       <Typography variant="h4" align="center" gutterBottom style={{ marginTop: '80px' }}>
         Beat the Model
       </Typography>
