@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Grid, Card, CardMedia, CardActions, Button, Modal, Box } from '@mui/material';
 
 const preloadedImages = [
-  '/X-Ray-1.jfif',
-  '/X-Ray-2.jfif',
-  '/X-Ray-3.jfif',
-  '/X-Ray-4.jfif'
+  '/preloaded/X-ray-1.jpeg',
+  '/preloaded/X-ray-2.jpeg',
+  '/preloaded/X-ray-3.jpeg',
+  '/preloaded/X-ray-4.jpeg'
 ];
 
 const modalStyle = {

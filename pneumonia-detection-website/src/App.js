@@ -63,12 +63,15 @@ function App() {
       <Typography variant="h3" align="center" gutterBottom>
         Pneumonia Detection from Chest X-rays
       </Typography>
+      <Typography variant="h5" gutterBottom style={{ marginTop: '50px'}}>
+          Drag and Drop Image
+        </Typography>
       <Box mt={4}>
         <ImageDropZone onImageUpload={(file) => setUploadedImage(file)} onDetect={(image) => handleDetect(image)} />
       </Box>
       <Box mt={4}>
-        <Typography variant="h5" gutterBottom>
-          Or choose from preloaded images:
+        <Typography variant="h5" gutterBottom style={{ marginTop: '50px' }}>
+          Preloaded images
         </Typography>
         <PreloadedImageGallery onDetect={(imagePath) => handleDetect(imagePath)} />
       </Box>
@@ -76,10 +79,10 @@ function App() {
                      confidence={result.confidence} 
                      openModal={openModal}
                      setOpenModal={setOpenModal}/>
-      <Typography variant="h4" align="center" gutterBottom style={{ marginTop: '80px' }}>
+      <Typography variant="h5"  gutterBottom style={{ marginTop: '50px' }}>
         Beat the Model
       </Typography>
-      <TryToBeatModel />
+      <TryToBeatModel style={{ marginBottom: '120px' }}/>
     </Container>
   );
 }

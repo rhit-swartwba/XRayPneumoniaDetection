@@ -11,14 +11,15 @@ app = Flask(__name__)
 CORS(app)  # This allows all origins to access all routes
 
 # Load the trained PyTorch model
-model = models.resnet50(pretrained=False)  # Replace with your model architecture
-num_ftrs = model.fc.in_features
-model.fc = nn.Sequential(
-    nn.Dropout(p=0.5),  # Dropout layer for regularization
-    nn.Linear(num_ftrs, 2)  # Binary classification layer
+model = models.vgg16_bn(pretrained=False)  # Replace with your model architecture
+num_features = model.classifier[6].in_features
+model.classifier = nn.Sequential(
+    *list(model.classifier.children())[:-1],  # All layers except the last one
+    nn.Dropout(0.5),                         # Add dropout layer
+    nn.Linear(num_features, 3)               # New layer for 3 classes
 )
-# Load the model's state_dict and map to the correct device (CPU/GPU)
-model.load_state_dict(torch.load('resnet50_pneumonia.pth'), strict=False)
+# Load the model's state_dict and map to CPU if CUDA is not available
+model.load_state_dict(torch.load('vgg16_pneumonia_3class3.pth', map_location=torch.device('cpu')), strict=False)
 model.eval()  # Set the model to evaluation mode
 
 # Define image preprocessing transformation

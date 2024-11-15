@@ -150,14 +150,14 @@ function TryToBeatModel() {
 
   return (
     <div>
+      <Typography variant="body1" style={{ marginTop: '20px', marginBottom: '10px' }}>
+        Given 5 chest X-Ray images, see if you can beat the model by predicting pneumonia or healthy
+      </Typography>
       <Box display="flex" alignItems="center" marginBottom={2}>
         <Button variant="contained" color="primary" onClick={handleStart}>
-          Try to Beat the Model
+          Start
         </Button>
       </Box>
-      <Typography variant="body1">
-        Try to beat the model by guessing "pneumonia" or "healthy" for each image.
-      </Typography>
 
       <Modal open={open} onClose={handleClose}>
         {showFinalResults ? (
