@@ -2,14 +2,13 @@
 
 ## Step 1: Obtain the Model File
 
-1. Download the `vgg16_3class_model.zip` zip from Github. Extract the  `vgg16_pneumonia_3class3.pth` file from the zip folder and save it locally.  
-   - If for some reason it does not work, contact one of the following individuals to request the file:
-     - **Brian Beasley**: [beaslebf@rose-hulman.edu](mailto:beaslebf@rose-hulman.edu)
-     - **Blaise Swartwood**: [swartwba@rose-hulman.edu](mailto:swartwba@rose-hulman.edu)
-     - **Tommaso Calviello**: [calviet@rose-hulman.edu](mailto:calviet@rose-hulman.edu)
+1. Download the `vgg16_pneumonia_3class3.pth` file from Gauss server and save it locally. Access the Gauss server by going to [Gauss](http://gauss.csse.rose-hulman.edu/) and login. Ensure that you are on the Rose-Hulman network or connected to the VPN. Navigate to the project directory:
+   ```bash
+   cd ../../work/cssema416/202510/08/XRayPneumoniaDetection/
+Download the `vgg16_pneumonia_3class3.pth` and save it locally. 
 
 ## Step 2: Download the Connection Script
-2. Download the `Model_Connection.py` file and save it locally in the same directory as the `vgg16_pneumonia_3class3.pth` file.
+2. Download the `Model_Connection.py` file from this repository and save it locally in the same directory as the `vgg16_pneumonia_3class3.pth` file.
 
 ## Step 3: Install Required Packages
 3. Before running the script, ensure the following Python packages are installed. Use these commands to install them:
