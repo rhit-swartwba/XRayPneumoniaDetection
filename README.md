@@ -1,14 +1,15 @@
 # Chest X-Ray Pneumonia Detection
 
 ## Step 1: Obtain the Model File
-1. Download the `vgg16_pneumonia_3class3.pth` file from the Gauss server and save it locally.  
-   - If you cannot access Gauss, contact one of the following individuals to request the file:
+
+1. Download the `vgg16_3class_model.zip` zip from Github. Extract the  `vgg16_pneumonia_3class3.pth` file from the zip folder and save it locally.  
+   - If for some reason it does not work, contact one of the following individuals to request the file:
      - **Brian Beasley**: [beaslebf@rose-hulman.edu](mailto:beaslebf@rose-hulman.edu)
      - **Blaise Swartwood**: [swartwba@rose-hulman.edu](mailto:swartwba@rose-hulman.edu)
      - **Tommaso Calviello**: [calviet@rose-hulman.edu](mailto:calviet@rose-hulman.edu)
 
 ## Step 2: Download the Connection Script
-2. Download the `Model_Connection.py` file and save it locally in the same directory as `vgg16_pneumonia_3class3.pth`.
+2. Download the `Model_Connection.py` file and save it locally in the same directory as the `vgg16_pneumonia_3class3.pth` file.
 
 ## Step 3: Install Required Packages
 3. Before running the script, ensure the following Python packages are installed. Use these commands to install them:
