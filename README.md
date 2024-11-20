@@ -26,7 +26,11 @@ Download the `vgg16_pneumonia_3class3.pth` file and save it locally.
    python Model_Connection.py
    
 ## Step 5: Access the Frontend
-5. Open the link to the frontend hosted via Firebase and use the application as normal.
+5. Open the link to the website hosted by firebase: 
    [X-Ray Pneumonia Detection](https://xraypneumoniadetection.web.app/)
+
+
+## Data
+The dataset we used to train and test the model can be found at Kaggle at this link: [Chest X-ray Pneumonia Images](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
 
 
